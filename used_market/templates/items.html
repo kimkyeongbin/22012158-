@@ -1,0 +1,40 @@
+<!-- templates/items.html -->
+{% extends 'base.html' %}
+{% block title %}상품 목록{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">상품 목록</h1>
+
+  <form class="mb-4" method="GET" action="{{ url_for('items_page') }}">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="검색어를 입력하세요"
+        name="search"
+        value="{{ request.args.get('search', '') }}"
+      />
+      <button class="btn btn-outline-secondary" type="submit">검색</button>
+    </div>
+  </form>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for item in items %}
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">{{ item.price }}원</p>
+          </div>
+          <div class="card-footer text-end">
+            <a href="{{ url_for('item_detail', item_id=item.id) }}" class="btn btn-outline-primary btn-sm">
+              상세보기
+            </a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-muted">등록된 상품이 없습니다.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

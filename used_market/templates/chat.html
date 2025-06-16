@@ -1,0 +1,46 @@
+<!-- templates/chat.html -->
+{% extends 'base.html' %}
+{% block title %}채팅{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">상품 채팅</h1>
+  <div class="alert alert-info">
+    이 채팅창은 예시 UI입니다. 실시간 채팅은 Flask-SocketIO 등을 사용해 구현해야 합니다.
+  </div>
+
+  <!-- 해당 상품 정보도 함께 표시 -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <p><strong>상품 제목:</strong> {{ item.title }}</p>
+      <p><strong>카테고리:</strong> {{ item.category }}</p>
+      <p><strong>설명:</strong> {{ item.description }}</p>
+      <p><strong>가격:</strong> {{ item.price }}원</p>
+    </div>
+  </div>
+
+  <!-- 채팅 메시지 목록 -->
+  <div id="chat-box" class="border p-3 mb-3" style="height: 300px; overflow-y: scroll;">
+    {% if messages %}
+      {% for msg in messages %}
+        <p><strong>{{ msg.sender_id }}:</strong> {{ msg.message }} <small class="text-muted">{{ msg.timestamp }}</small></p>
+      {% endfor %}
+    {% else %}
+      <p class="text-muted">아직 메시지가 없습니다.</p>
+    {% endif %}
+  </div>
+
+  <!-- 채팅 입력 폼 -->
+  <form method="POST" action="{{ url_for('chat', item_id=item.id) }}">
+    <div class="input-group">
+      <input
+        type="text"
+        id="chat-message"
+        class="form-control"
+        name="message"
+        placeholder="메시지를 입력하세요..."
+        required
+      />
+      <button type="submit" class="btn btn-success">전송</button>
+    </div>
+  </form>
+{% endblock %}

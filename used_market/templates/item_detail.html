@@ -1,0 +1,21 @@
+<!-- templates/item_detail.html -->
+{% extends 'base.html' %}
+{% block title %}상품 상세보기{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">상품 상세보기</h1>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title">{{ item.title }}</h4>
+      <p class="card-text"><strong>카테고리:</strong> {{ item.category }}</p>
+      <p class="card-text"><strong>설명:</strong><br> {{ item.description }}</p>
+      <p class="card-text"><strong>가격:</strong> {{ item.price }}원</p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <a href="{{ url_for('items_page') }}" class="btn btn-secondary">목록으로</a>
+    <a href="{{ url_for('chat', item_id=item.id) }}" class="btn btn-primary">실시간 채팅하기</a>
+  </div>
+{% endblock %}
